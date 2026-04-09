@@ -13,8 +13,7 @@ O Ollama ainda nao esta instalado ou o instalador ficou preso.
 1. Espere um pouco e acompanhe as mensagens do terminal.
 2. Se demorar demais, confira o log em `%TEMP%\\Lyra_Ollama_Install.log`.
 3. Se precisar, instale manualmente por [ollama.com/download/windows](https://ollama.com/download/windows).
-4. Depois rode [start.bat](C:\Users\guell\Documents\gerador de musica\start.bat) de novo.
-
+4. Depois rode [start.bat]
 ## 2. O Ollama sobe, mas a interface mostra modelo offline
 
 ### O que significa
@@ -65,7 +64,7 @@ Se continuar em `503` por muito tempo e nunca mudar para `200`.
 
 1. Espere o carregamento inicial.
 2. Veja o terminal.
-3. Se o pipeline nao subir, feche o app e rode [start.bat](C:\Users\guell\Documents\gerador de musica\start.bat) de novo.
+3. Se o pipeline nao subir, feche o app e rode [start.bat]
 
 ## 5. O chat abre, mas nao responde ou mostra `Falha ao conversar com a IA`
 
@@ -90,7 +89,7 @@ O frontend mudou bastante e o navegador pode estar usando JS antigo em cache.
 ### O que fazer
 
 1. Pare o servidor.
-2. Rode [start.bat](C:\Users\guell\Documents\gerador de musica\start.bat) de novo.
+2. Rode [start.bat]
 3. Faca `Ctrl+F5`.
 4. Se ainda estiver zoado, abra a aba anonima e teste.
 
@@ -190,7 +189,7 @@ Depois disso:
 ### Passos
 
 1. Feche o servidor.
-2. Reabra [start.bat](C:\Users\guell\Documents\gerador de musica\start.bat).
+2. Reabra [start.bat]
 3. Faca `Ctrl+F5`.
 4. Se o problema for so de chat, use `Novo chat`.
 5. Se o problema for so de modelo, troque o modelo em `Config`.
@@ -207,9 +206,9 @@ Mande:
 
 ## 14. Arquivos uteis para manutencao
 
-- [README.md](C:\Users\guell\Documents\gerador de musica\README.md)
-- [api.txt](C:\Users\guell\Documents\gerador de musica\api.txt)
-- [app.py](C:\Users\guell\Documents\gerador de musica\app.py)
-- [app.js](C:\Users\guell\Documents\gerador de musica\static\js\app.js)
-- [chat_fix.js](C:\Users\guell\Documents\gerador de musica\static\js\chat_fix.js)
-- [page_criar.html](C:\Users\guell\Documents\gerador de musica\templates\partials\page_criar.html)
+- [README.md]
+- [api.txt
+- [app.py]
+- [app.js]
+- [chat_fix.js]
+- [page_criar.html]
