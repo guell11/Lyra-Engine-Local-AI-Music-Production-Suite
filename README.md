@@ -3,7 +3,7 @@
 
 <p align="center">
   <b>Gerador local de música com IA para Windows</b><br>
-  <i>Sem nuvem. Sem dependência externa. Só você e sua GPU suando.</i>
+  <i>Sem nuvem. Sem dependência externa. Só você e sua GPU </i>
 </p>
 
 <p align="center">
