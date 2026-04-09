@@ -1,203 +1,300 @@
-Lyra-Engine
-README em TXT
 
-Atualizado em: 2026-04-09
 
-==================================================
-1. O que e
-==================================================
+# 🎵 Lyra Engine
 
-Lyra-Engine e um gerador local de musica com IA para Windows.
+<p align="center">
+  <b>Gerador local de música com IA para Windows</b><br>
+  <i>Sem nuvem. Sem dependência externa. Só você e sua GPU suando.</i>
+</p>
 
-Ele junta:
-- ACE-Step 1.5 para gerar audio
-- Ollama para chat, letras e visao
-- Flask para servir a interface web local
+<p align="center">
+  <img src="https://img.shields.io/badge/status-active-success">
+  <img src="https://img.shields.io/badge/platform-Windows-blue">
+  <img src="https://img.shields.io/badge/AI-local-orange">
+  <img src="https://img.shields.io/badge/license-private-lightgrey">
+</p>
 
-Tudo roda na sua maquina.
+---
 
-Endereco padrao:
-- http://localhost:5000
+## 🚀 Visão geral
 
-==================================================
-2. O que o app faz hoje
-==================================================
+O **Lyra Engine** é um sistema completo de geração musical com IA rodando **100% localmente**.
 
-- gera musica a partir de prompt musical
-- gera letras com IA local
-- faz chat musical em PT-BR
-- faz pesquisa web local guiada pelo chat
-- exporta blocos do chat para a aba Criar
-- aceita referencia vocal
-- salva, toca, deleta e estende faixas
-- troca modelos de texto e visao pela interface
-- controla retencao de memoria para texto e musica
+Ele integra:
+- 🎼 Geração de música
+- 🧠 Modelos de linguagem
+- 🌐 Interface web local
 
-==================================================
-3. Motores usados
-==================================================
+🔗 **Acesse:**
+```
 
-Musica:
+[http://localhost:5000](http://localhost:5000)
+
+````
+
+---
+
+## 🧠 Funcionalidades
+
+- 🎶 Geração de música via prompt
+- ✍️ Criação de letras com IA
+- 💬 Chat musical em PT-BR
+- 🌐 Pesquisa web integrada
+- 📤 Exportação do chat → criação
+- 🎤 Referência vocal
+- 💾 Gerenciamento de faixas
+- 🔁 Troca de modelos em tempo real
+- 🧠 Controle de memória (VRAM/RAM)
+
+---
+
+## ⚙️ Stack
+
+### 🎼 Música
 - ACE-Step 1.5
 
-Texto:
-- Gemma 3 Gaia PT-BR 4B
-- Gemma 3 Gaia PT-BR 4B Vision
-- Qwen 3.5 4B
-- Qwen 3.5 9B
+### 🧾 Modelos de texto
+- Gemma 3 Gaia PT-BR 4B  
+- Gemma 3 Gaia PT-BR 4B Vision  
+- Qwen 3.5 4B  
+- Qwen 3.5 9B  
 
-Runtime de modelos:
+### 🧩 Runtime
 - Ollama
 
-==================================================
-4. Como iniciar
-==================================================
+### 🌐 Backend
+- Flask
 
-1. Rode start.bat
-2. O launcher prepara o ambiente Python
-3. O launcher verifica o Visual C++ Redistributable
-4. O launcher instala ou inicia o Ollama
-5. O app sobe em http://localhost:5000
+---
 
-Launchers extras:
-- start.bat
-- start_CPU_Only.bat
-- start_LowVRAM_GPU.bat
-- start_Quantized_Fast.bat
+## ▶️ Como rodar
 
-==================================================
-5. Abas principais
-==================================================
+### 1. Execute:
+```bash
+start.bat
+````
 
-Criar:
-- prompt musical
-- letra
-- idioma
-- duracao
-- BPM
-- tonalidade
-- compasso
-- referencia vocal
+### 2. O sistema automaticamente:
 
-Feed:
-- biblioteca local das faixas geradas
-- player
-- delete
-- extend
+* 🐍 Configura Python
+* 🧱 Verifica Visual C++
+* 🤖 Inicializa Ollama
+* 🌐 Sobe servidor local
 
-Config:
-- modelo de texto
-- modelo vision
-- temperatura
-- repeticao
-- idioma padrao
-- retencao de memoria
+---
 
-Chat:
-- conversa com a IA
-- pesquisa web
-- resposta em stream
-- exportar para Criar
+## 🧪 Modos de inicialização
 
-==================================================
-6. Formato musical do chat
-==================================================
+| Script                     | Descrição                  |
+| -------------------------- | -------------------------- |
+| `start.bat`                | padrão                     |
+| `start_CPU_Only.bat`       | sem GPU (dor emocional)    |
+| `start_LowVRAM_GPU.bat`    | GPUs limitadas             |
+| `start_Quantized_Fast.bat` | mais rápido, menos preciso |
 
-Quando o chat responde em modo musical, ele tenta usar blocos estruturados:
+---
 
-- title
-- style
-- lyrics
-- duration
-- language
+## 🧭 Interface
 
-Regras atuais:
-- style em linhas com colchetes
-  exemplo: [guitarra pesada metalica]
-- lyrics com cada linha entre aspas
-  exemplo: "Sol brilha no peito"
+### 🎨 Criar
 
-==================================================
-7. Retencao de memoria
-==================================================
+* Prompt musical
+* Letra
+* Idioma
+* Duração
+* BPM
+* Tonalidade
+* Compasso
+* Referência vocal
 
-Texto:
-- auto
-- vram
-- ram
-- unload
+---
 
-Musica:
-- auto
-- vram
-- ram
-- unload
+### 📚 Feed
 
-Comportamento musical:
+* Biblioteca de faixas
+* Player
+* Delete
+* Extend
 
-auto
-- nao carrega o ACE-Step no boot
-- entra em estado standby
-- carrega sozinho quando voce clica em Criar Musica
-- descarrega depois da geracao
+---
 
-vram
-- deixa o modelo musical preso na GPU
-- e o mais rapido para varias geracoes em sequencia
-- pode faltar VRAM em faixas longas
+### ⚙️ Config
 
-ram
-- usa offload para CPU/RAM quando possivel
-- ajuda quando a GPU e mais apertada
+* Modelo de texto
+* Modelo vision
+* Temperatura
+* Repetição
+* Idioma padrão
+* Retenção de memória
 
-unload
-- descarrega tudo apos cada geracao
+---
 
-==================================================
-8. Notas importantes de uso
-==================================================
+### 💬 Chat
 
-- Em modo automatico, o app pode mostrar "Pronto sob demanda".
-  Isso e normal.
+* Conversa com IA
+* Pesquisa web
+* Resposta em streaming
+* Exportação para Criar
 
-- Em duracoes altas, como 180s, o modo vram pode estourar VRAM.
-  Nesses casos, prefira:
-  - automatico
-  - ram
-  - unload
+---
 
-- O chat pode fazer pesquisa web para perguntas factuais e referencias musicais.
+## 🎼 Formato musical
 
-- Para pedidos criativos, a busca tenta transformar a frase do usuario em consultas reais de buscador.
+### Estrutura:
 
-- O idioma exportado do chat para Criar agora tenta ir junto para evitar voz errada.
+```txt
+title:
+style:
+lyrics:
+duration:
+language:
+```
 
-==================================================
-9. Arquivos importantes do projeto
-==================================================
+### Regras
 
-- app.py
-- config.json
-- api.txt
-- README.md
-- AJUDA.md
-- static/
-- templates/
-- output/
-- models/
-- ace_step_src/
+**Style**
 
-==================================================
-10. Documentos recomendados
-==================================================
+```
+[guitarra pesada metalica]
+```
 
-- api.txt
-  resumo da API real
+**Lyrics**
 
-- AJUDA.md
-  ajuda e troubleshooting
+```
+"Sol brilha no peito"
+"Vento corta a estrada"
+```
 
-- README.md
-  versao markdown da documentacao principal
+---
 
-Fim.
+## 🧠 Retenção de memória
+
+### Modos disponíveis
+
+* `auto`
+* `vram`
+* `ram`
+* `unload`
+
+---
+
+### 🎵 Comportamento
+
+| Modo   | Descrição            |
+| ------ | -------------------- |
+| auto   | carrega sob demanda  |
+| vram   | mais rápido, usa GPU |
+| ram    | offload para CPU     |
+| unload | descarrega sempre    |
+
+---
+
+## ⚠️ Notas importantes
+
+* 🟡 “Pronto sob demanda” é normal
+* ⏱️ Durações longas podem estourar VRAM
+* 💡 Use `auto`, `ram` ou `unload` nesses casos
+* 🌐 Chat pode usar busca real
+* 🎨 Prompt vira consulta otimizada
+* 🌎 Idioma exportado evita voz errada
+
+---
+
+## 📁 Estrutura
+
+```bash
+app.py
+config.json
+api.txt
+README.md
+AJUDA.md
+static/
+templates/
+output/
+models/
+ace_step_src/
+```
+
+---
+
+## 📚 Documentação
+
+* `api.txt` → API
+* `AJUDA.md` → troubleshooting
+* `README.md` → documentação principal
+
+---
+---
+
+## 🖥️ Requisitos de GPU (NVIDIA)
+
+Este projeto foi **testado com placas NVIDIA**.
+
+### 📊 VRAM recomendada
+
+| Nível | VRAM | Observação |
+|------|------|-----------|
+| 🟢 Recomendado | **16 GB** | Experiência ideal, sem limitações |
+| 🟡 Mínimo recomendado | **8 GB** | Funciona bem, com alguns cuidados |
+| 🔴 Mínimo absoluto | **4 GB** | ⚠️ Por sua conta e risco |
+
+---
+
+### ⚠️ Observações importantes
+
+- GPUs com **8 GB** podem ter problemas em:
+  - músicas longas  
+  - múltiplas gerações seguidas  
+
+- GPUs com **4 GB**:
+  - podem falhar frequentemente  
+  - exigem modos como `ram` ou `unload`  
+  - podem ser... uma experiência espiritual  
+
+- Para evitar crashes:
+  - prefira modos de memória mais leves  
+  - reduza duração das faixas  
+  - evite multitarefa pesada  
+
+---
+
+
+---
+
+## 🧩 Tecnologias utilizadas
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Flask-backend-black?logo=flask">
+  <img src="https://img.shields.io/badge/Ollama-runtime-white?logo=llama">
+  <img src="https://img.shields.io/badge/Python-3.x-blue?logo=python">
+  <img src="https://img.shields.io/badge/NVIDIA-GPU-green?logo=nvidia">
+  <img src="https://img.shields.io/badge/AI-Local-orange">
+</p>
+
+---
+
+### 🧠 Stack detalhada
+
+- 🌐 **Flask** → servidor web local  
+- 🤖 **Ollama** → execução dos modelos  
+- 🐍 **Python** → backend principal  
+- 🎼 **ACE-Step 1.5** → geração musical  
+- 🧾 **Gemma / Qwen** → linguagem e visão  
+
+---
+
+### ⚙️ Execução
+
+Tudo roda localmente:
+
+- sem API externa  
+- sem dependência cloud  
+- sem cobrança surpresa no cartão  
+
+---
+
+### 💡 Filosofia
+
+> Seu PC, suas regras.  
+> PRIVACIDADE é TUDO 
+> feito para ajudar a nao ficar no tedio quando tiver ofiline 🙏🙏🙏
