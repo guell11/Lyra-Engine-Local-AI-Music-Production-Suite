@@ -1,4 +1,3 @@
-<img width="2552" height="1263" alt="image" src="https://github.com/user-attachments/assets/d436abb0-9eff-4484-81b8-c690028f92df" />
 
 # 🎵 Lyra Engine
 
