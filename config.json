@@ -1,0 +1,15 @@
+{
+  "theme": "dark",
+  "llm_temperature": 1.05,
+  "llm_repeat_penalty": 1.5,
+  "llm_model_id": "gaia_text_4b",
+  "llm_vision_model_id": "gaia_vision_4b",
+  "basePrompt": "escreva os detalhes do audio entre [] e a letra entre \"\"",
+  "maxTokens": 512,
+  "defaultLang": "pt",
+  "defaultDuration": 90,
+  "defaultSteps": 25,
+  "acestep_vram_mode": "auto",
+  "gemma_vram_mode": "auto",
+  "temperature": 1.05
+}

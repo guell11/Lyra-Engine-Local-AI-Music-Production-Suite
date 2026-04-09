@@ -1,0 +1,473 @@
+Lyra-Engine
+API local atual
+
+Atualizado em: 2026-04-09
+
+==================================================
+1. Visao geral
+==================================================
+
+O Lyra-Engine e uma web app local servida por Flask.
+
+Motores usados hoje:
+- ACE-Step 1.5 para geracao de audio
+- Ollama para chat, letras e visao
+
+Portas padrao:
+- App: http://localhost:5000
+- Ollama: http://127.0.0.1:11434
+
+==================================================
+2. Paginas HTML
+==================================================
+
+GET /
+- abre a aba Criar
+
+GET /feed
+- abre a aba Feed
+
+GET /configuracoes
+- abre a aba Config
+
+GET /chat
+- abre a aba Chat
+
+GET /favicon.ico
+- retorna 204
+
+Observacao:
+- o frontend usa um shell unico com navegacao interna
+
+==================================================
+3. Estado de boot
+==================================================
+
+GET /api/setup-status
+- retorna o estado interno do boot do motor musical
+
+Exemplo:
+{
+  "phase": "loading",
+  "message": "Preparando ACE-Step 1.5 na CUDA...",
+  "current": 0,
+  "total": 1,
+  "complete": false,
+  "error": null
+}
+
+Fases vistas hoje:
+- idle
+- setup
+- loading
+- ready
+- standby
+- error
+
+Importante:
+- em modo automatico de retencao do modelo musical, o boot pode terminar em standby
+- standby significa "pronto sob demanda", nao erro
+
+GET /api/health
+
+Possiveis respostas:
+
+1. Online
+Status HTTP: 200
+{
+  "status": "online",
+  "gpu": "NVIDIA GeForce RTX 4060"
+}
+
+2. Standby
+Status HTTP: 200
+{
+  "status": "standby",
+  "phase": "standby"
+}
+
+3. Loading
+Status HTTP: 503
+{
+  "status": "loading",
+  "phase": "loading"
+}
+
+==================================================
+4. Modelos de texto e visao
+==================================================
+
+Modelos cadastrados:
+
+- gaia_text_4b
+  - model: cnmoro/gemma3-gaia-ptbr-4b:q4_k_m
+  - kind: text
+
+- gaia_vision_4b
+  - model: cnmoro/gemma3-gaia-ptbr-4b-vision:q4_k_m
+  - kind: vision
+
+- qwen35_4b
+  - model: qwen3.5:4b
+  - kind: text
+
+- qwen35_9b
+  - model: qwen3.5:9b
+  - kind: text
+
+==================================================
+5. Estado do Ollama
+==================================================
+
+GET /api/llm/status
+- retorna os modelos disponiveis e o estado do Ollama
+
+Resposta:
+{
+  "models": {
+    "gaia_text_4b": {
+      "title": "Gemma 3 Gaia PT-BR 4B",
+      "model": "cnmoro/gemma3-gaia-ptbr-4b:q4_k_m",
+      "size": "2.5 GB",
+      "kind": "text",
+      "description": "Texto em PT-BR para chat, letras e briefing musical.",
+      "status": "ready",
+      "selected": true,
+      "selected_vision": false,
+      "requested": true,
+      "requested_vision": false,
+      "supported": true,
+      "support_reason": null,
+      "installed": true,
+      "progress": null,
+      "error": null
+    }
+  },
+  "runtime_error": null,
+  "runtime_version": "0.20.2",
+  "notice": "",
+  "engine": "ollama",
+  "engine_label": "Ollama 0.20.2"
+}
+
+POST /api/llm/download
+- inicia download de um modelo no Ollama
+
+Body:
+{
+  "model_id": "gaia_text_4b"
+}
+
+Resposta:
+{
+  "success": true,
+  "message": "Preparacao do modelo iniciada no Ollama."
+}
+
+==================================================
+6. Chat
+==================================================
+
+POST /api/chat
+- chat principal do Lyra
+- aceita conversa em lista de mensagens
+- aceita stream SSE
+- pode usar pesquisa web
+- pode trabalhar em modo informativo ou musical
+
+Body minimo:
+{
+  "message": "Quero um refrao pop animado"
+}
+
+Body multi-turn:
+{
+  "messages": [
+    {"role": "user", "content": "Pesquisa os ritmos do Supercombo"},
+    {"role": "assistant", "content": "Posso trazer referencias e depois montar uma faixa"},
+    {"role": "user", "content": "Faz isso"}
+  ],
+  "stream": true,
+  "web_search": true,
+  "search_level": "medium"
+}
+
+Campos relevantes:
+- message
+- messages
+- stream
+- web_search
+- search_level
+- attachments ou images, quando houver suporte de imagem
+
+search_level suportado:
+- basic
+- medium
+- large
+
+Resposta sem stream:
+{
+  "success": true,
+  "reply": "...",
+  "research": []
+}
+
+Stream SSE:
+- delta
+- text
+- done
+- error
+- research_source
+
+Observacoes:
+- respostas musicais priorizam blocos title, style, lyrics, duration e language
+- style sai em linhas com colchetes
+- lyrics sai com cada linha cantada entre aspas
+
+POST /api/chat-legacy
+- alias de compatibilidade
+
+==================================================
+7. Geracao de letras
+==================================================
+
+POST /api/generate-lyrics
+- endpoint efetivo de letras via Ollama
+- aceita stream
+- monta estrutura por duracao
+- normaliza idioma de entrada
+
+Body:
+{
+  "genre": "pop rock",
+  "language": "pt",
+  "prompt": "saudade e virada emocional",
+  "base_prompt": "",
+  "max_tokens": 1200,
+  "temperature": 1.05,
+  "repeat_penalty": 1.5,
+  "duration": 120,
+  "stream": true
+}
+
+Resposta sem stream:
+{
+  "lyrics": "[Verse 1]\n\"linha...\"\n[Chorus]\n\"linha...\""
+}
+
+==================================================
+8. Geracao de musica
+==================================================
+
+POST /api/generate
+- gera uma ou mais faixas com ACE-Step
+- em modo automatico pode carregar o pipeline sob demanda
+- pausa o motor de texto antes de gerar para reduzir disputa de VRAM
+
+Body:
+{
+  "caption": "[guitarra pesada metalica]\n[bateria agressiva 4/4]",
+  "title": "Minha Faixa",
+  "lyrics": "[Verse 1]\n\"Minha linha 1\"\n\"Minha linha 2\"",
+  "vocal_language": "pt",
+  "duration": 180,
+  "inference_steps": 25,
+  "cfg_scale": 10.0,
+  "shift": 4.0,
+  "batch_size": 1,
+  "seed": -1,
+  "ui_mode": "simple",
+  "bpm": 140,
+  "key_scale": "C major",
+  "time_signature": "4/4",
+  "reference_audio": "voz.wav"
+}
+
+Resposta:
+{
+  "success": true,
+  "files": [
+    "Minha_Faixa_20260409_194500.wav"
+  ],
+  "effective_params": {
+    "inference_steps": 6,
+    "cfg_scale": 1.0,
+    "shift": 3.0,
+    "duration": 180,
+    "ui_mode": "simple"
+  },
+  "tuning_notes": [
+    "..."
+  ]
+}
+
+Erro comum:
+- VRAM insuficiente em duracoes altas quando o modelo musical esta mantido na VRAM
+
+==================================================
+9. Biblioteca de faixas
+==================================================
+
+GET /api/songs
+- lista as musicas salvas em output
+
+GET /api/songs/<filename>
+- retorna o audio
+
+DELETE /api/songs/<filename>
+- remove wav e json associado
+
+==================================================
+10. Voz de referencia
+==================================================
+
+POST /api/upload-voice
+- faz upload de amostra vocal
+- converte formatos comuns para wav quando necessario
+
+Formatos aceitos na pratica:
+- wav
+- mp3
+- flac
+- ogg
+- m4a
+
+GET /api/voices
+- lista vozes disponiveis
+
+DELETE /api/voices/<filename>
+- remove a voz
+
+==================================================
+11. Extensao de faixa
+==================================================
+
+POST /api/extend
+- gera mais audio e concatena com uma faixa existente
+
+Body:
+{
+  "filename": "Minha_Faixa_20260409_194500.wav",
+  "duration": 30,
+  "caption": "continua no mesmo clima"
+}
+
+Resposta:
+{
+  "success": true,
+  "duration": 210
+}
+
+==================================================
+12. Configuracao
+==================================================
+
+GET /api/config
+- retorna config atual mesclado com defaults
+
+POST /api/config
+- salva config
+- pode disparar pull de modelo quando llm_model_id ou llm_vision_model_id muda
+
+Campos importantes de config:
+- theme
+- llm_temperature
+- llm_repeat_penalty
+- llm_model_id
+- llm_vision_model_id
+- basePrompt
+- maxTokens
+- defaultLang
+- defaultDuration
+- defaultSteps
+- acestep_vram_mode
+- gemma_vram_mode
+
+Exemplo:
+{
+  "theme": "dark",
+  "llm_temperature": 1.05,
+  "llm_repeat_penalty": 1.5,
+  "llm_model_id": "gaia_text_4b",
+  "llm_vision_model_id": "gaia_vision_4b",
+  "basePrompt": "escreva os detalhes do audio entre [] e a letra entre \"\"",
+  "maxTokens": 512,
+  "defaultLang": "pt",
+  "defaultDuration": 90,
+  "defaultSteps": 25,
+  "acestep_vram_mode": "auto",
+  "gemma_vram_mode": "auto"
+}
+
+POST /api/reload-engines
+- libera o texto atual
+- derruba o pipeline musical atual
+- inicia recarga em background
+
+Resposta:
+{
+  "success": true,
+  "message": "Recarregando em background. Aguarde a interface voltar a ficar 'Online'."
+}
+
+==================================================
+13. Politica de retencao
+==================================================
+
+Texto:
+- auto
+- vram
+- ram
+- unload
+
+Musica:
+- auto
+- vram
+- ram
+- unload
+
+Comportamento musical atual:
+- auto: standby no boot, carrega sob demanda e descarrega apos gerar
+- vram: deixa ACE-Step carregado na GPU
+- ram: usa offload para CPU/RAM quando possivel
+- unload: descarrega tudo apos cada geracao
+
+==================================================
+14. Fluxos resumidos
+==================================================
+
+Fluxo do chat:
+1. Front envia mensagens para /api/chat
+2. Backend detecta se a resposta deve ser musical ou informativa
+3. Se houver pesquisa web, monta consultas e resume fontes
+4. Ollama responde
+5. Front renderiza a resposta e pode exportar para Criar
+
+Fluxo de letras:
+1. Front envia estilo, idioma, prompt e duracao
+2. Backend gera estrutura sugerida
+3. Ollama escreve a letra
+4. Backend normaliza a saida
+5. Front preenche o textarea
+
+Fluxo de musica:
+1. Front envia caption, letra, idioma e parametros
+2. Backend pausa o texto e limpa cache CUDA
+3. Se necessario, carrega ACE-Step sob demanda
+4. ACE-Step gera audio
+5. Backend salva wav + json em output
+6. Feed passa a listar a nova faixa
+
+==================================================
+15. Arquivos principais
+==================================================
+
+- app.py
+- config.json
+- templates/
+- static/
+- output/
+- models/
+- ace_step_src/
+
+Fim.
