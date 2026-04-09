@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="page active" id="page-criar" style="display: flex !important;">
+    <div class="main-layout">
+
+        <!-- Left: Creation Panel -->
+        <aside class="creation-panel" id="creation-panel">
+            <div class="panel-scroll">
+
+                <!-- Estilo & Genero -->
+                <section class="panel-section">
+                    <div class="section-header">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        <span>Estilo & Genero</span>
+                    </div>
+                    <textarea id="caption-input" placeholder="Descreva o estilo da sua musica...&#10;Ex: Pop rock energetico com guitarras eletricas, refroes cativantes e bateria potente" rows="3"></textarea>
+                    <div class="style-tags" id="style-tags">
+                        <button class="style-pill" data-style="pop">pop</button>
+                        <button class="style-pill" data-style="rock">rock</button>
+                        <button class="style-pill" data-style="electronic">electronic</button>
+                        <button class="style-pill" data-style="hip hop">hip hop</button>
+                        <button class="style-pill" data-style="jazz">jazz</button>
+                        <button class="style-pill" data-style="classical">classical</button>
+                        <button class="style-pill" data-style="R&B">R&B</button>
+                        <button class="style-pill" data-style="country">country</button>
+                        <button class="style-pill" data-style="lo-fi">lo-fi</button>
+                        <button class="style-pill" data-style="metal">metal</button>
+                        <button class="style-pill" data-style="funk">funk</button>
+                        <button class="style-pill" data-style="reggaeton">reggaeton</button>
+                        <button class="style-pill" data-style="bossa nova">bossa nova</button>
+                        <button class="style-pill" data-style="sertanejo">sertanejo</button>
+                        <button class="style-pill" data-style="MPB">MPB</button>
+                        <button class="style-pill" data-style="ambient">ambient</button>
+                        <button class="style-pill" data-style="dark folk">dark folk</button>
+                        <button class="style-pill" data-style="synthwave">synthwave</button>
+                    </div>
+                </section>
+
+                <!-- Letras -->
+                <section class="panel-section">
+                    <div class="section-header">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                        <span>Letras</span>
+                        <button class="btn-ai-lyrics" id="btn-ai-lyrics" title="Gerar letras automaticamente com IA">
+                            <svg class="ai-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"/></svg>
+                            <span>Gerar com IA</span>
+                        </button>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="toggle-lyrics" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div id="lyrics-container">
+                        <textarea id="ai-prompt-input" placeholder="Descreva a musica que quer (para a IA gerar a letra)...&#10;Ex: Uma musica de amor sobre saudade, com ritmo animado" rows="2" class="auto-lyrics"></textarea>
+                        
+                        <textarea id="lyrics-input" placeholder="Escreva suas letras aqui... Use tags como [Verse], [Chorus], [Bridge]&#10;&#10;Ou clique 'Gerar com IA' para criar letras automaticamente!" rows="6"></textarea>
+                        <div class="lyrics-tags">
+                            <button class="lyric-tag" data-tag="[Verse]">[Verse]</button>
+                            <button class="lyric-tag" data-tag="[Chorus]">[Chorus]</button>
+                            <button class="lyric-tag" data-tag="[Bridge]">[Bridge]</button>
+                            <button class="lyric-tag" data-tag="[Intro]">[Intro]</button>
+                            <button class="lyric-tag" data-tag="[Outro]">[Outro]</button>
+                            <button class="lyric-tag" data-tag="[Hook]">[Hook]</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Duracao e Idioma -->
+                <div class="config-row divider">
+                    <div class="config-group">
+                        <label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Duracao (s)</label>
+                        <input type="number" id="opt-duration" value="60" min="10" max="600" class="num-input">
+                    </div>
+                    <div class="config-group">
+                        <label><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Idioma</label>
+                        <select id="language-select" class="select-input">
+                            <option value="pt">PT - Portugues</option>
+                            <option value="en">EN - English</option>
+                            <option value="es">ES - Spanish</option>
+                            <option value="fr">FR - French</option>
+                            <option value="ja">JA - Japanese</option>
+                            <option value="ko">KO - Korean</option>
+                            <option value="zh">ZH - Chinese</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Reference Audio -->
+                <section class="panel-section divider">
+                    <div class="section-header">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                        <span>Referencia Vocal (Voice Clone)</span>
+                    </div>
+                    <div class="upload-area">
+                        <select id="voice-select" class="select-input">
+                            <option value="">Nenhuma (voz padrao da IA)</option>
+                        </select>
+                        <button class="btn-upload" title="Upload Audio" id="btn-upload-audio">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        </button>
+                        <input type="file" id="voice-upload-input" accept="audio/*" class="hidden">
+                    </div>
+                    <p class="upload-hint">Envie um audio de 10-30s com a voz que deseja clonar</p>
+                </section>
+
+                <!-- Advanced Options -->
+                <section class="panel-section advanced-only hidden" id="advanced-section">
+                    <div class="section-header">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                        <span>Geracao Avancada</span>
+                    </div>
+                    <div class="options-grid">
+                        <div class="option-row">
+                            <label>Passos de Inferencia (Steps)</label>
+                            <div class="range-row">
+                                <input type="range" id="opt-steps" min="4" max="50" step="1" value="20" class="range-input">
+                                <span id="opt-steps-val" class="range-val">20</span>
+                            </div>
+                        </div>
+                        <div class="option-row">
+                            <label>CFG Scale (Variacao)</label>
+                            <div class="range-row">
+                                <input type="range" id="opt-cfg" min="1.0" max="15.0" step="0.5" value="7.0" class="range-input">
+                                <span id="opt-cfg-val" class="range-val">7.0</span>
+                            </div>
+                        </div>
+                        <div class="option-row">
+                            <label>Seed (Semente)</label>
+                            <input type="number" id="opt-seed" value="-1" class="num-input full" placeholder="-1 = Aleatorio">
+                        </div>
+                        <div class="option-row">
+                            <label>Batch Size</label>
+                            <input type="number" id="opt-batch" value="1" min="1" max="4" class="num-input full">
+                        </div>
+                    </div>
+                    <div class="option-row full-width divider">Metas Musicais (Opcional)</div>
+                    <div class="option-row">
+                        <label>BPM</label>
+                        <input type="number" id="opt-bpm" value="" min="40" max="240" placeholder="Auto" class="num-input" style="width:100%">
+                    </div>
+                    <div class="option-row">
+                        <label>Tonalidade</label>
+                        <select id="opt-key" class="select-input">
+                            <option value="">Auto</option>
+                            <option>C major</option><option>C minor</option>
+                            <option>D major</option><option>D minor</option>
+                            <option>E major</option><option>E minor</option>
+                            <option>F major</option><option>F minor</option>
+                            <option>G major</option><option>G minor</option>
+                            <option>A major</option><option>A minor</option>
+                            <option>B major</option><option>B minor</option>
+                        </select>
+                    </div>
+                    <div class="option-row full-width">
+                        <label>Compasso</label>
+                        <select id="opt-time" class="select-input">
+                            <option value="">Auto</option>
+                            <option value="4/4">4/4</option>
+                            <option value="3/4">3/4</option>
+                            <option value="6/8">6/8</option>
+                        </select>
+                    </div>
+                </section>
+
+                <!-- Titulo -->
+                <section class="panel-section">
+                    <div class="input-with-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        <input type="text" id="song-title" placeholder="Titulo da Musica (Opcional)" class="text-input">
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Create Button -->
+            <div class="create-section">
+                <!-- Starts active if serverReady is true from JS -->
+                <button id="btn-generate" class="btn-generate">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    <span>Criar Musica</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Right: Workspace -->
+        <main class="workspace" id="workspace">
+            <div class="workspace-header">
+                <h2>Meu Workspace</h2>
+                <div class="workspace-actions">
+                    <div class="search-bar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <input type="text" id="search-songs" placeholder="Buscar musicas...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Generation Progress -->
+            <div id="generation-status" class="generation-status hidden">
+                <div class="gen-card">
+                    <div class="gen-waveform">
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                    </div>
+                    <div class="gen-info">
+                        <h3 id="gen-title">Gerando...</h3>
+                        <p id="gen-caption">Processando sua musica</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Song List -->
+            <div id="song-list" class="song-list">
+                <div class="empty-state" id="empty-state">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5">
+                        <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+                    </svg>
+                    <h3>Nenhuma musica ainda</h3>
+                    <p>Descreva um estilo, escreva ou gere letras com IA, e clique <strong>Criar Musica</strong> para comecar.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}

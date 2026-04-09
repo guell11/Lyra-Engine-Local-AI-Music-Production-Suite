@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'partials/page_criar.html' %}
+{% include 'partials/page_feed.html' %}
+{% include 'partials/page_config.html' %}
+{% include 'partials/page_chat.html' %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/chat_fix.js?v=20260409-spa11"></script>
+{% endblock %}
