@@ -24,7 +24,6 @@ Ele integra:
 - 🧠 Modelos de linguagem
 - 🌐 Interface web local
 
-<img width="2552" height="1263" alt="image" src="https://github.com/user-attachments/assets/a2cf654a-b2fd-4461-9738-5d08c5243090" />
 
 🔗 **Acesse:**
 ```
