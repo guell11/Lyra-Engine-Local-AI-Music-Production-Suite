@@ -297,4 +297,4 @@ Tudo roda localmente:
 
 > Seu PC, suas regras.  
 > PRIVACIDADE é TUDO
-> feito para ajudar a nao ficar no tedio quando tiver ofiline 🙏🙏
+> Feito para ajudar a nao ficar no tedio quando tiver ofiline 🙏🙏
