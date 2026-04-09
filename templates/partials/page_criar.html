@@ -1,0 +1,271 @@
+            <div class="page{% if active_page == 'criar' %} active{% endif %}" id="page-criar">
+                <div class="main-layout">
+
+                    <!-- Left: Creation Panel -->
+                    <aside class="creation-panel" id="creation-panel">
+                        <div class="panel-scroll">
+
+                            <!-- Estilo & Genero -->
+                            <section class="panel-section">
+                                <div class="section-header">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                    <span>Estilo & Genero</span>
+                                </div>
+                                <textarea id="caption-input" placeholder="Descreva o estilo da sua musica...&#10;Ex: Pop rock energetico com guitarras eletricas, refroes cativantes e bateria potente" rows="3"></textarea>
+                                <div class="style-tags" id="style-tags">
+                                    <button class="style-pill" data-style="pop">pop</button>
+                                    <button class="style-pill" data-style="rock">rock</button>
+                                    <button class="style-pill" data-style="electronic">electronic</button>
+                                    <button class="style-pill" data-style="hip hop">hip hop</button>
+                                    <button class="style-pill" data-style="jazz">jazz</button>
+                                    <button class="style-pill" data-style="classical">classical</button>
+                                    <button class="style-pill" data-style="R&B">R&B</button>
+                                    <button class="style-pill" data-style="country">country</button>
+                                    <button class="style-pill" data-style="lo-fi">lo-fi</button>
+                                    <button class="style-pill" data-style="metal">metal</button>
+                                    <button class="style-pill" data-style="funk">funk</button>
+                                    <button class="style-pill" data-style="reggaeton">reggaeton</button>
+                                    <button class="style-pill" data-style="bossa nova">bossa nova</button>
+                                    <button class="style-pill" data-style="sertanejo">sertanejo</button>
+                                    <button class="style-pill" data-style="MPB">MPB</button>
+                                    <button class="style-pill" data-style="ambient">ambient</button>
+                                    <button class="style-pill" data-style="dark folk">dark folk</button>
+                                    <button class="style-pill" data-style="synthwave">synthwave</button>
+                                </div>
+                            </section>
+
+                            <!-- Letras -->
+                            <section class="panel-section">
+                                <div class="section-header">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                                    <span>Letras</span>
+                                    <button class="btn-ai-lyrics" id="btn-ai-lyrics" title="Gerar letras automaticamente com o modelo ativo do Ollama">
+                                        <svg class="ai-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"/></svg>
+                                        <span>Gerar com IA</span>
+                                    </button>
+                                    <label class="toggle-label">
+                                        <input type="checkbox" id="toggle-lyrics" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div id="lyrics-container">
+                                    <!-- AI Prompt -->
+                                    <div class="ai-prompt-section">
+                                        <textarea id="ai-prompt-input" placeholder="Descreva a musica que quer (para a IA gerar a letra)...&#10;Ex: Uma musica de amor sobre saudade, com 2 refroes fortes, ponte emocional e final marcante" rows="2"></textarea>
+                                    </div>
+                                    <textarea id="lyrics-input" placeholder="Escreva suas letras aqui... Use tags como [Verse], [Chorus], [Bridge], [Hook]&#10;&#10;Para musicas maiores, repita mais de um [Chorus] e use [Verse 2], [Verse 3], [Bridge], [Outro]." rows="7"></textarea>
+                                    <div class="lyrics-helper-row">
+                                        <span class="helper-label">Tags rápidas</span>
+                                        <div class="lyrics-tags">
+                                            <button class="tag-btn" data-tag="[Intro]">[Intro]</button>
+                                            <button class="tag-btn" data-tag="[Verse]">[Verse]</button>
+                                            <button class="tag-btn" data-tag="[Verse 2]">[Verse 2]</button>
+                                            <button class="tag-btn" data-tag="[Pre-Chorus]">[Pre-Chorus]</button>
+                                            <button class="tag-btn" data-tag="[Chorus]">[Chorus]</button>
+                                            <button class="tag-btn" data-tag="[Bridge]">[Bridge]</button>
+                                            <button class="tag-btn" data-tag="[Outro]">[Outro]</button>
+                                            <button class="tag-btn" data-tag="[Hook]">[Hook]</button>
+                                            <button class="tag-btn" data-tag="[Final Chorus]">[Final Chorus]</button>
+                                        </div>
+                                    </div>
+                                    <div class="lyrics-helper-row">
+                                        <span class="helper-label">Estrutura pronta</span>
+                                        <div class="lyrics-tags">
+                                            <button class="tag-btn structure-btn" data-structure="short">Curta</button>
+                                            <button class="tag-btn structure-btn" data-structure="standard">Padrão</button>
+                                            <button class="tag-btn structure-btn" data-structure="long">Longa</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- Duracao & Idioma -->
+                            <div class="panel-section-row">
+                                <section class="panel-section flex-1">
+                                    <div class="section-header">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                        <span>Duracao (s)</span>
+                                    </div>
+                                    <input type="number" id="opt-duration" value="90" min="10" max="600" class="num-input duration-input-wide">
+                                    <div class="field-pills" id="duration-pills">
+                                        <button class="field-pill duration-pill" type="button" data-duration="45">45s</button>
+                                        <button class="field-pill duration-pill" type="button" data-duration="60">60s</button>
+                                        <button class="field-pill duration-pill active" type="button" data-duration="90">90s</button>
+                                        <button class="field-pill duration-pill" type="button" data-duration="120">120s</button>
+                                        <button class="field-pill duration-pill" type="button" data-duration="180">180s</button>
+                                        <button class="field-pill duration-pill" type="button" data-duration="240">240s</button>
+                                    </div>
+                                </section>
+                                <section class="panel-section flex-1">
+                                    <div class="section-header">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l6 10 6-10"/><path d="M3 3h18"/></svg>
+                                        <span>Idioma</span>
+                                    </div>
+                                    <select id="language-select" class="select-input">
+                                        <option value="pt" selected>PT - Portugues</option>
+                                        <option value="en">EN - Ingles</option>
+                                        <option value="es">ES - Espanhol</option>
+                                        <option value="fr">FR - Frances</option>
+                                        <option value="de">DE - Alemao</option>
+                                        <option value="it">IT - Italiano</option>
+                                        <option value="ja">JA - Japones</option>
+                                        <option value="ko">KO - Coreano</option>
+                                    </select>
+                                    <div class="field-pills" id="language-pills">
+                                        <button class="field-pill language-pill active" type="button" data-lang="pt">PT</button>
+                                        <button class="field-pill language-pill" type="button" data-lang="en">EN</button>
+                                        <button class="field-pill language-pill" type="button" data-lang="es">ES</button>
+                                        <button class="field-pill language-pill" type="button" data-lang="fr">FR</button>
+                                        <button class="field-pill language-pill" type="button" data-lang="de">DE</button>
+                                        <button class="field-pill language-pill" type="button" data-lang="it">IT</button>
+                                        <button class="field-pill language-pill" type="button" data-lang="ja">JA</button>
+                                        <button class="field-pill language-pill" type="button" data-lang="ko">KO</button>
+                                    </div>
+                                </section>
+                            </div>
+
+                            <!-- Voice Clone -->
+                            <section class="panel-section">
+                                <div class="section-header">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                                    <span>Referencia Vocal (Voice Clone)</span>
+                                </div>
+                                <div class="voice-clone-section">
+                                    <div class="voice-select-row">
+                                        <select id="voice-select" class="select-input">
+                                            <option value="">Nenhuma (voz padrao da IA)</option>
+                                        </select>
+                                        <label class="btn-upload-voice" for="voice-upload-input" title="Enviar amostra de voz (.wav, .mp3, .flac)">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                        </label>
+                                        <input type="file" id="voice-upload-input" accept=".wav,.mp3,.flac,.ogg,.m4a" style="display:none;">
+                                    </div>
+                                    <p class="voice-hint">Envie um audio de 10-30s com a voz que deseja clonar</p>
+                                </div>
+                            </section>
+
+                            <section class="panel-section advanced-options hidden" id="advanced-section">
+                                <div class="section-header">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                                    <span>Parametros Avancados</span>
+                                </div>
+                                <div class="advanced-grid">
+                                    <div class="option-row">
+                                        <label title="Numero de passos da difusao. Mais passos = mais qualidade e mais demora.">Passos de Inferencia</label>
+                                        <div class="range-row">
+                                            <input type="range" id="opt-steps" min="4" max="50" value="25" class="range-input">
+                                            <span id="opt-steps-val" class="range-val">25</span>
+                                        </div>
+                                    </div>
+                                    <div class="option-row">
+                                        <label title="O quao criativa a IA pode ser. 1.0 (Turbo) ou 7.0+ (Base)">Escala CFG</label>
+                                        <div class="range-row">
+                                            <input type="range" id="opt-cfg" min="1" max="15" step="0.5" value="10.0" class="range-input">
+                                            <span id="opt-cfg-val" class="range-val">10.0</span>
+                                        </div>
+                                    </div>
+                                    <div class="option-row">
+                                        <label title="Acelera a variacao de latente. Padrao: 4.0">Flow Shift</label>
+                                        <div class="range-row">
+                                            <input type="range" id="opt-shift" min="1" max="10" step="0.5" value="4.0" class="range-input">
+                                            <span id="opt-shift-val" class="range-val">4.0</span>
+                                        </div>
+                                    </div>
+                                    <div class="option-row">
+                                        <label title="Quantas musicas gerar de uma vez">Batch Size</label>
+                                        <input type="number" id="opt-batch" value="1" min="1" max="4" class="num-input" style="width:100%">
+                                    </div>
+                                    <div class="option-row full-width">
+                                        <label title="Semente aleatoria. -1 para aleatorio.">Seed (Semente)</label>
+                                        <input type="number" id="opt-seed" value="-1" class="num-input" style="width:100%">
+                                    </div>
+                                    <div class="option-row full-width divider">Metas Musicais (Opcional)</div>
+                                    <div class="option-row">
+                                        <label>BPM</label>
+                                        <input type="number" id="opt-bpm" value="" min="40" max="240" placeholder="Auto" class="num-input" style="width:100%">
+                                    </div>
+                                    <div class="option-row">
+                                        <label>Tonalidade</label>
+                                        <select id="opt-key" class="select-input">
+                                            <option value="">Auto</option>
+                                            <option>C major</option><option>C minor</option>
+                                            <option>D major</option><option>D minor</option>
+                                            <option>E major</option><option>E minor</option>
+                                            <option>F major</option><option>F minor</option>
+                                            <option>G major</option><option>G minor</option>
+                                            <option>A major</option><option>A minor</option>
+                                            <option>B major</option><option>B minor</option>
+                                        </select>
+                                    </div>
+                                    <div class="option-row full-width">
+                                        <label>Compasso</label>
+                                        <select id="opt-time" class="select-input">
+                                            <option value="">Auto</option>
+                                            <option value="4/4">4/4</option>
+                                            <option value="3/4">3/4</option>
+                                            <option value="6/8">6/8</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- Titulo -->
+                            <section class="panel-section">
+                                <div class="input-with-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                    <input type="text" id="song-title" placeholder="Titulo da Musica (Opcional)" class="text-input">
+                                </div>
+                            </section>
+
+                        </div>
+
+                        <!-- Create Button -->
+                        <div class="create-section">
+                            <button id="btn-generate" class="btn-generate" disabled>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                                <span>Criar Musica</span>
+                            </button>
+                        </div>
+                    </aside>
+
+                    <!-- Right: Workspace -->
+                    <main class="workspace" id="workspace">
+                        <div class="workspace-header">
+                            <h2>Meu Workspace</h2>
+                            <div class="workspace-actions">
+                                <div class="search-bar">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                    <input type="text" id="search-songs" placeholder="Buscar musicas...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Generation Progress -->
+                        <div id="generation-status" class="generation-status hidden">
+                            <div class="gen-card">
+                                <div class="gen-waveform">
+                                    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                                    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                                    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                                    <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                                </div>
+                                <div class="gen-info">
+                                    <h3 id="gen-title">Gerando...</h3>
+                                    <p id="gen-caption">Processando sua musica</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Song List -->
+                        <div id="song-list" class="song-list">
+                            <div class="empty-state" id="empty-state">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5">
+                                    <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+                                </svg>
+                                <h3>Nenhuma musica ainda</h3>
+                                <p>Descreva um estilo, escreva ou gere letras com IA, e clique <strong>Criar Musica</strong> para comecar.</p>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </div>

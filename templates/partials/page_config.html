@@ -1,0 +1,175 @@
+<div class="page settings-page{% if active_page == 'config' %} active{% endif %}" id="page-config">
+
+    <div class="cfg-header">
+        <div class="cfg-header-left">
+            <div class="cfg-header-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </div>
+            <div>
+                <h1 class="cfg-title">Configuracoes</h1>
+                <p class="cfg-subtitle">Personalize os parametros da IA, modelos e memoria</p>
+            </div>
+        </div>
+        <div class="cfg-autosave-badge">
+            <span class="cfg-autosave-dot"></span>
+            Salvo automaticamente
+        </div>
+    </div>
+
+    <div class="cfg-bento">
+
+        <div class="cfg-card cfg-card--wide">
+            <div class="cfg-card-header">
+                <div class="cfg-card-icon cfg-icon--orange">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2z"/></svg>
+                </div>
+                <div>
+                    <h3 class="cfg-card-title">Motor de letras</h3>
+                    <p class="cfg-card-desc">Prompt base e parametros do modelo de texto</p>
+                </div>
+            </div>
+            <div class="cfg-field">
+                <label class="cfg-label" for="config-base-prompt">Prompt base</label>
+                <textarea id="config-base-prompt" class="cfg-textarea autosave" rows="3" placeholder="Instrucoes base para a IA gerar letras...">Escreva letras de musica criativas e emocionantes. Use estrutura com secoes como [Intro], [Verse], [Chorus], [Bridge], [Hook] e [Outro] quando fizer sentido. Para musicas maiores, mantenha mais de um refrao e progressao natural entre as secoes.</textarea>
+                <span class="cfg-hint">Enviado a cada pedido de geracao. Personalize o estilo das letras.</span>
+            </div>
+            <div class="cfg-row-3">
+                <div class="cfg-field">
+                    <label class="cfg-label" for="config-max-tokens">Tokens maximos</label>
+                    <input type="number" id="config-max-tokens" value="1024" min="128" max="2048" class="cfg-input autosave">
+                    <span class="cfg-hint">Tamanho maximo da saida da IA</span>
+                </div>
+                <div class="cfg-field">
+                    <label class="cfg-label">Temperatura - <span id="val-temp" class="cfg-val-badge">1.05</span></label>
+                    <input type="range" id="config-llm-temperature" min="0.1" max="2.0" step="0.05" value="1.05" class="cfg-slider autosave">
+                    <div class="cfg-slider-labels"><span>Focado</span><span>Criativo</span></div>
+                </div>
+                <div class="cfg-field">
+                    <label class="cfg-label">Penalidade de repeticao - <span id="val-pen" class="cfg-val-badge">1.1</span></label>
+                    <input type="range" id="config-llm-penalty" min="1.0" max="2.0" step="0.05" value="1.1" class="cfg-slider autosave">
+                    <div class="cfg-slider-labels"><span>Repetitivo</span><span>Variado</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cfg-card cfg-card--models">
+            <div class="cfg-card-header">
+                <div class="cfg-card-icon cfg-icon--purple">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </div>
+                <div>
+                    <h3 class="cfg-card-title">Modelos de IA</h3>
+                    <p class="cfg-card-desc">Ollama instala e ativa os modelos automaticamente</p>
+                </div>
+            </div>
+            <div id="llm-models-container" class="cfg-models-list">
+                <div class="cfg-loading">Carregando modelos...</div>
+            </div>
+        </div>
+
+        <div class="cfg-card">
+            <div class="cfg-card-header">
+                <div class="cfg-card-icon cfg-icon--blue">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                </div>
+                <div>
+                    <h3 class="cfg-card-title">Aparencia</h3>
+                    <p class="cfg-card-desc">Tema e padroes de geracao</p>
+                </div>
+            </div>
+            <div class="cfg-field">
+                <label class="cfg-label" for="config-theme">Tema da interface</label>
+                <select id="config-theme" class="cfg-select autosave">
+                    <option value="light" selected>Modo claro</option>
+                    <option value="dark">Modo escuro</option>
+                </select>
+            </div>
+            <div class="cfg-field">
+                <label class="cfg-label" for="config-default-lang">Idioma padrao</label>
+                <select id="config-default-lang" class="cfg-select autosave">
+                    <option value="pt" selected>PT - Portugues</option>
+                    <option value="en">EN - Ingles</option>
+                    <option value="es">ES - Espanhol</option>
+                    <option value="fr">FR - Frances</option>
+                    <option value="de">DE - Alemao</option>
+                    <option value="it">IT - Italiano</option>
+                    <option value="ja">JA - Japones</option>
+                    <option value="ko">KO - Coreano</option>
+                </select>
+            </div>
+            <div class="cfg-row-2">
+                <div class="cfg-field">
+                    <label class="cfg-label" for="config-default-duration">Duracao (s)</label>
+                    <input type="number" id="config-default-duration" value="90" min="10" max="600" class="cfg-input autosave">
+                </div>
+                <div class="cfg-field">
+                    <label class="cfg-label" for="config-default-steps">Passos</label>
+                    <input type="number" id="config-default-steps" value="25" min="4" max="50" class="cfg-input autosave">
+                </div>
+            </div>
+        </div>
+
+        <div class="cfg-card">
+            <div class="cfg-card-header">
+                <div class="cfg-card-icon cfg-icon--green">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+                </div>
+                <div>
+                    <h3 class="cfg-card-title">Retencao de modelos</h3>
+                    <p class="cfg-card-desc">Controle como cada motor ocupa a VRAM e a RAM</p>
+                </div>
+            </div>
+            <div class="cfg-field">
+                <label class="cfg-label" for="config-gemma-vram">Modelos de texto</label>
+                <select id="config-gemma-vram" class="cfg-select autosave vram-trigger">
+                    <option value="auto">Modo automatico</option>
+                    <option value="vram">Manter na VRAM</option>
+                    <option value="ram" selected>Colocar em cache na RAM</option>
+                    <option value="unload">Descarregar completamente</option>
+                </select>
+                <span class="cfg-hint">Afeta chat, letras e pesquisa web. Automatico usa o comportamento antigo de retenção curta e offload inteligente; VRAM responde mais rapido; unload libera memoria ao final de cada resposta.</span>
+            </div>
+            <div class="cfg-field">
+                <label class="cfg-label" for="config-acestep-vram">Modelo de musica</label>
+                <select id="config-acestep-vram" class="cfg-select autosave vram-trigger">
+                    <option value="auto">Modo automatico</option>
+                    <option value="vram" selected>Manter na VRAM</option>
+                    <option value="ram">Colocar em cache na RAM</option>
+                    <option value="unload">Descarregar completamente</option>
+                </select>
+                <span class="cfg-hint">Automatico usa o fluxo antigo sob demanda: carrega ao gerar, usa offload para RAM quando possivel e libera o motor ao final. VRAM e a opcao mais rapida para geracoes em sequencia. RAM mantem o ACE-Step em cache fora da GPU. Unload descarrega tudo apos gerar.</span>
+            </div>
+            <p class="cfg-hint cfg-hint--warning" id="reload-msg" style="display:none;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;display:inline;vertical-align:-2px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Aplicando nova politica de memoria... aguarde o reload dos motores.
+            </p>
+        </div>
+
+        <div class="cfg-card cfg-card--system">
+            <div class="cfg-card-header">
+                <div class="cfg-card-icon cfg-icon--gray">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </div>
+                <div>
+                    <h3 class="cfg-card-title">Sistema</h3>
+                    <p class="cfg-card-desc">Info de hardware e modelo ativo</p>
+                </div>
+            </div>
+            <div class="cfg-sysinfo" id="system-info">
+                <div class="cfg-sysinfo-item">
+                    <span class="cfg-sysinfo-label">Status</span>
+                    <span class="cfg-sysinfo-value" id="info-status">Carregando...</span>
+                </div>
+                <div class="cfg-sysinfo-item">
+                    <span class="cfg-sysinfo-label">GPU</span>
+                    <span class="cfg-sysinfo-value" id="info-gpu">--</span>
+                </div>
+                <div class="cfg-sysinfo-item">
+                    <span class="cfg-sysinfo-label">Modelo LLM</span>
+                    <span class="cfg-sysinfo-value" id="info-llm">--</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
