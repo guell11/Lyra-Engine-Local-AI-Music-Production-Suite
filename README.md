@@ -108,6 +108,9 @@ start.bat
 * Compasso
 * Referência vocal
 
+<img width="2552" height="1263" alt="image" src="https://github.com/user-attachments/assets/a2cf654a-b2fd-4461-9738-5d08c5243090" />
+
+
 ---
 
 ### 📚 Feed
@@ -116,6 +119,8 @@ start.bat
 * Player
 * Delete
 * Extend
+* 
+<img width="2557" height="1259" alt="image" src="https://github.com/user-attachments/assets/9ef4ba76-b2ec-45b6-8d9c-a0218f787212" />
 
 ---
 
@@ -128,6 +133,8 @@ start.bat
 * Idioma padrão
 * Retenção de memória
 
+<img width="2544" height="1269" alt="image" src="https://github.com/user-attachments/assets/ec763db8-a9c9-416c-948e-95c265ea44bd" />
+
 ---
 
 ### 💬 Chat
@@ -136,6 +143,8 @@ start.bat
 * Pesquisa web
 * Resposta em streaming
 * Exportação para Criar
+* 
+<img width="2539" height="1261" alt="image" src="https://github.com/user-attachments/assets/eb5b69ad-c6b4-401f-89d0-b21fe40ab704" />
 
 ---
 
