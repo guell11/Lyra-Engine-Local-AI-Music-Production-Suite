@@ -194,17 +194,8 @@ Depois disso:
 4. Se o problema for so de chat, use `Novo chat`.
 5. Se o problema for so de modelo, troque o modelo em `Config`.
 
-## 13. Se quiser me mandar erro para eu corrigir
 
-Mande:
-
-- print da tela
-- trecho do terminal
-- o que voce clicou antes do erro
-- qual modelo estava selecionado
-- se o erro aconteceu em `Criar`, `Feed`, `Config` ou `Chat`
-
-## 14. Arquivos uteis para manutencao
+## 13. Arquivos uteis para manutencao
 
 - [README.md]
 - [api.txt
