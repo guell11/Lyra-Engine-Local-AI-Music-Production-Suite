@@ -1,0 +1,96 @@
+            <div class="page chat-page{% if active_page == 'chat' %} active{% endif %}" id="page-chat">
+
+                <div class="chat-sidebar">
+                    <div class="chat-sidebar-header">
+                        <button class="chat-btn-new" id="chat-new-btn" type="button">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            Novo chat
+                        </button>
+                    </div>
+
+                    <div class="chat-sidebar-menu">
+                        <button class="chat-menu-item" id="chat-search-hint" type="button">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            Historico local
+                        </button>
+                        <button class="chat-menu-item" id="chat-context-hint" type="button">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                            Contexto da musica
+                        </button>
+                    </div>
+
+                    <div class="chat-sidebar-lists">
+                        <div class="chat-sidebar-section">Historico</div>
+                        <div id="chat-history-list"></div>
+                        <div class="chat-history-empty" id="chat-history-empty">Nenhuma conversa ainda.</div>
+                    </div>
+
+                    <div class="chat-sidebar-footer">
+                        <div class="chat-user-profile">
+                            <div class="chat-user-avatar">EU</div>
+                            <span class="chat-user-name">Usuario</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-main chat-state-empty" id="chat-main">
+                    <div class="chat-top-bar">
+                        <div class="chat-model-selector" id="chat-model-selector">Ollama local <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+                        <div class="chat-top-actions">
+                            <label class="chat-web-depth" for="chat-web-depth">
+                                <span>Profundidade</span>
+                                <select class="chat-web-depth-select" id="chat-web-depth">
+                                    <option value="basic">Basico · 5 sites</option>
+                                    <option value="medium">Medio · 10 sites</option>
+                                    <option value="large">Grande · 20 sites</option>
+                                </select>
+                            </label>
+                            <button class="chat-web-toggle" id="chat-web-toggle" type="button" aria-pressed="false">
+                                <span class="chat-web-toggle-dot"></span>
+                                Pesquisa web
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="chat-conversation" id="chat-conversation">
+                        <div class="chat-empty-state" id="chat-empty-state">
+                            <div class="chat-logo-center">LY</div>
+                            <h1>Ola, bem-vindo.</h1>
+
+                            <div class="chat-suggestions">
+                                <span class="suggestion-title">Sugestoes de musica</span>
+                                <button class="suggestion-btn" data-prompt="Ajude-me a compor um refrao pop animado sobre o verao.">
+                                    <strong>Ajude-me a compor</strong>
+                                    um refrao pop animado
+                                </button>
+                                <button class="suggestion-btn" data-prompt="Me de ideias instrumentais para finalizar uma musica classica emotiva.">
+                                    <strong>Me de ideias</strong>
+                                    para um arranjo classico
+                                </button>
+                                <button class="suggestion-btn" data-prompt="Quais ritmos ficam bem com batidas lofi em 90 BPM?">
+                                    <strong>Me tire uma duvida</strong>
+                                    sobre ritmos de lofi em 90 BPM
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="chat-scroll-area" id="chat-scroll-area"></div>
+                    </div>
+
+                    <aside class="chat-research-dock hidden" id="chat-research-dock" aria-live="polite">
+                        <div class="chat-research-dock-content" id="chat-research-dock-content"></div>
+                    </aside>
+
+                    <div class="chat-input-wrapper">
+                        <div class="chat-attachments-bar" id="chat-attachments-bar"></div>
+                        <div class="chat-input-pill">
+                            <button class="chat-attach-btn" id="chat-attach-btn" title="Anexar arquivo" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-8.49 8.49a5 5 0 0 1-7.07-7.07l9.19-9.19a3 3 0 0 1 4.24 4.24l-9.2 9.19a1 1 0 0 1-1.41-1.41l8.49-8.48"/></svg></button>
+                            <input type="file" id="chat-file-input" class="hidden" accept="image/*,.txt,.md,.json,.csv" multiple>
+                            <input type="text" id="chat-input" placeholder="Como posso te ajudar com a sua musica hoje?">
+                            <button class="chat-action-btn chat-send-btn" id="chat-send-btn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+                        </div>
+                        <div class="chat-disclaimer">A IA pode cometer erros ao discutir musica. Considere verificar informacoes.</div>
+                    </div>
+                </div>
+
+            </div>
