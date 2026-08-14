@@ -1,156 +1,292 @@
+<div align="center">
 
-# 🎵 Lyra Engine
+# Lyra Engine
 
-<p align="center">
-  <b>Gerador local de música com IA para Windows</b><br>
-  <i>Sem nuvem. Sem dependência externa. Só você e sua GPU </i>
-</p>
+### Local AI Music Generation Platform
 
-<p align="center">
-  <img src="https://img.shields.io/badge/status-active-success">
-  <img src="https://img.shields.io/badge/platform-Windows-blue">
-  <img src="https://img.shields.io/badge/AI-local-orange">
-  <img src="https://img.shields.io/badge/license-private-lightgrey">
-</p>
+**A fully local AI music generation environment that combines music synthesis, language models, multimodal capabilities and GPU-aware model orchestration in a single interface.**
+
+`Windows` · `Python` · `Flask` · `ACE-Step` · `Ollama` · `Gemma` · `Qwen`
+
+<br>
+
+<img src="https://img.shields.io/badge/status-active-success">
+<img src="https://img.shields.io/badge/platform-Windows-blue">
+<img src="https://img.shields.io/badge/inference-local-orange">
+<img src="https://img.shields.io/badge/GPU-NVIDIA-76B900?logo=nvidia">
+<img src="https://img.shields.io/badge/license-private-lightgrey">
+
+</div>
 
 ---
 
-## 🚀 Visão geral
+## Overview
 
-O **Lyra Engine** é um sistema completo de geração musical com IA rodando **100% localmente**.
+**Lyra Engine** is a local-first environment for AI-assisted music creation.
 
-Ele integra:
-- 🎼 Geração de música
-- 🧠 Modelos de linguagem
-- 🌐 Interface web local
+It combines a music generation model, local language models and a web application into a unified workflow where users can move from an idea to a generated track without relying on cloud inference.
 
+The system handles more than generation itself.
 
-🔗 **Acesse:**
+It orchestrates:
+
+* music synthesis;
+* prompt and lyric generation;
+* local LLM inference;
+* multimodal models;
+* model lifecycle management;
+* GPU and system memory allocation;
+* track storage;
+* streaming chat;
+* web-assisted research;
+* creation workflows.
+
+Everything is exposed through a local web interface while the inference stack remains on the user's machine.
+
+> **Local models. Local files. Local inference.**
+
+---
+
+## Interface
+
+### Create
+
+The creation workspace provides control over the main musical parameters:
+
+* musical prompt;
+* lyrics;
+* language;
+* duration;
+* BPM;
+* key;
+* time signature;
+* vocal reference.
+
+<img width="2552" height="1263" alt="Lyra Engine creation interface" src="https://github.com/user-attachments/assets/a2cf654a-b2fd-4461-9738-5d08c5243090" />
+
+---
+
+### Library
+
+Generated tracks are stored in a local library with integrated playback and management.
+
+Available actions include:
+
+* playback;
+* deletion;
+* track extension;
+* access to previous generations.
+
+<img width="2557" height="1259" alt="Lyra Engine track library" src="https://github.com/user-attachments/assets/9ef4ba76-b2ec-45b6-8d9c-a0218f787212" />
+
+---
+
+### AI Configuration
+
+Language and vision inference can be configured directly from the interface.
+
+The application exposes controls for:
+
+* text model;
+* vision model;
+* temperature;
+* repetition parameters;
+* default language;
+* model memory retention.
+
+<img width="2544" height="1269" alt="Lyra Engine AI configuration" src="https://github.com/user-attachments/assets/ec763db8-a9c9-416c-948e-95c265ea44bd" />
+
+---
+
+### AI Chat
+
+Lyra also provides a local AI assistant integrated with the music creation workflow.
+
+It supports:
+
+* local LLM conversations;
+* PT-BR interaction;
+* streaming responses;
+* web search;
+* musical ideation;
+* prompt development;
+* direct transfer from conversation to the creation workspace.
+
+<img width="2539" height="1261" alt="Lyra Engine AI chat" src="https://github.com/user-attachments/assets/eb5b69ad-c6b4-401f-89d0-b21fe40ab704" />
+
+---
+
+## Architecture
+
+```text
+                         Lyra Engine
+                              │
+              ┌───────────────┼───────────────┐
+              │               │               │
+              ▼               ▼               ▼
+        Web Interface     Flask Backend    Local Storage
+              │               │               │
+              └───────────────┤               │
+                              │               │
+                ┌─────────────┴─────────────┐ │
+                │                           │ │
+                ▼                           ▼ ▼
+          LLM Runtime                 Music Engine
+            Ollama                    ACE-Step 1.5
+                │                           │
+       ┌────────┴────────┐                  │
+       │                 │                  │
+       ▼                 ▼                  ▼
+    Gemma              Qwen           Audio generation
+       │                 │                  │
+       └────────┬────────┘                  │
+                │                           │
+                ▼                           ▼
+       Text / Vision AI              Generated tracks
+                │                           │
+                └─────────────┬─────────────┘
+                              ▼
+                       Local workspace
 ```
 
-[http://localhost:5000]
-````
+The application acts as an orchestration layer between the user interface, local language models and the music generation pipeline.
 
 ---
 
-## 🧠 Funcionalidades
+## Core features
 
-- 🎶 Geração de música via prompt
-- ✍️ Criação de letras com IA
-- 💬 Chat musical em PT-BR
-- 🌐 Pesquisa web integrada
-- 📤 Exportação do chat → criação
-- 🎤 Referência vocal
-- 💾 Gerenciamento de faixas
-- 🔁 Troca de modelos em tempo real
-- 🧠 Controle de memória (VRAM/RAM)
+### AI music generation
 
----
+Music can be generated from structured parameters including textual descriptions, lyrics, duration, tempo, tonality and language.
 
-## ⚙️ Stack
+ACE-Step 1.5 provides the underlying music generation pipeline.
 
-### 🎼 Música
-- ACE-Step 1.5
+### AI-assisted songwriting
 
-### 🧾 Modelos de texto
-- Gemma 3 Gaia PT-BR 4B  
-- Gemma 3 Gaia PT-BR 4B Vision  
-- Qwen 3.5 4B  
-- Qwen 3.5 9B  
+Local language models can transform an initial concept into:
 
-### 🧩 Runtime
-- Ollama
+* lyrics;
+* song structures;
+* musical descriptions;
+* refined generation prompts.
 
-### 🌐 Backend
-- Flask
+The resulting content can be transferred directly into the creation workflow.
 
----
+### Local multimodal inference
 
-## ▶️ Como rodar
+Lyra supports configurable text and vision models through Ollama.
 
-### 1. Execute:
-```bash
-start.bat
-````
+Current model options include:
 
-### 2. O sistema automaticamente:
+* Gemma 3 Gaia PT-BR 4B;
+* Gemma 3 Gaia PT-BR 4B Vision;
+* Qwen 3.5 4B;
+* Qwen 3.5 9B.
 
-* 🐍 Configura Python
-* 🧱 Verifica Visual C++
-* 🤖 Inicializa Ollama
-* 🌐 Sobe servidor local
+Models can be changed without rebuilding the application.
 
----
+### Integrated research
 
-## 🧪 Modos de inicialização
+The assistant can optionally use web search to gather external information before generating a response.
 
-| Script                     | Descrição                  |
-| -------------------------- | -------------------------- |
-| `start.bat`                | padrão                     |
-| `start_CPU_Only.bat`       | sem GPU (dor emocional)    |
-| `start_LowVRAM_GPU.bat`    | GPUs limitadas             |
-| `start_Quantized_Fast.bat` | mais rápido, menos preciso |
+This allows research and music creation to remain inside the same workflow.
+
+### Vocal reference
+
+The generation pipeline supports vocal reference input as part of the creation process.
+
+### Track management
+
+Generated material is organized locally and can be played, managed and reused through the application interface.
 
 ---
 
-## 🧭 Interface
+## Memory-aware inference
 
-### 🎨 Criar
+Running music generation and language models on the same machine creates an important engineering problem:
 
-* Prompt musical
-* Letra
-* Idioma
-* Duração
-* BPM
-* Tonalidade
-* Compasso
-* Referência vocal
+**VRAM is finite.**
 
-<img width="2552" height="1263" alt="image" src="https://github.com/user-attachments/assets/a2cf654a-b2fd-4461-9738-5d08c5243090" />
+Lyra includes explicit model-retention strategies to control where models remain between operations.
 
+| Mode     | Behavior                                           |
+| -------- | -------------------------------------------------- |
+| `auto`   | selects resources according to demand              |
+| `vram`   | prioritizes GPU residency and lower reload latency |
+| `ram`    | offloads models to system memory when possible     |
+| `unload` | releases models aggressively between operations    |
 
----
+This allows the same application to target systems with very different hardware constraints.
 
-### 📚 Feed
-
-* Biblioteca de faixas
-* Player
-* Delete
-* Extend
-* 
-<img width="2557" height="1259" alt="image" src="https://github.com/user-attachments/assets/9ef4ba76-b2ec-45b6-8d9c-a0218f787212" />
-
----
-
-### ⚙️ Config
-
-* Modelo de texto
-* Modelo vision
-* Temperatura
-* Repetição
-* Idioma padrão
-* Retenção de memória
-
-<img width="2544" height="1269" alt="image" src="https://github.com/user-attachments/assets/ec763db8-a9c9-416c-948e-95c265ea44bd" />
+```text
+                    Model requested
+                          │
+                          ▼
+                  Memory strategy
+                          │
+          ┌───────────────┼───────────────┐
+          ▼               ▼               ▼
+        VRAM             RAM            Unload
+          │               │               │
+          ▼               ▼               ▼
+     Low latency     Lower VRAM use   Minimum retention
+```
 
 ---
 
-### 💬 Chat
+## GPU requirements
 
-* Conversa com IA
-* Pesquisa web
-* Resposta em streaming
-* Exportação para Criar
-* 
-<img width="2539" height="1261" alt="image" src="https://github.com/user-attachments/assets/eb5b69ad-c6b4-401f-89d0-b21fe40ab704" />
+The project has been tested with **NVIDIA GPUs**.
+
+| Configuration    |       VRAM | Expected experience                                    |
+| ---------------- | ---------: | ------------------------------------------------------ |
+| Recommended      | **16 GB+** | Full workflow with fewer memory constraints            |
+| Supported target |   **8 GB** | Usable with memory management                          |
+| Constrained      |   **4 GB** | Requires aggressive offloading and shorter generations |
+
+VRAM usage depends on factors including:
+
+* selected models;
+* track duration;
+* quantization;
+* model retention strategy;
+* simultaneous workloads.
+
+Systems with limited VRAM should prefer `auto`, `ram` or `unload`.
 
 ---
 
-## 🎼 Formato musical
+## Model orchestration
 
-### Estrutura:
+One of the main responsibilities of Lyra is coordinating multiple AI workloads on a single workstation.
 
-```txt
+```text
+User request
+     │
+     ▼
+Lyra backend
+     │
+     ├── textual task ──────► Ollama ──────► LLM
+     │
+     ├── vision task ───────► Ollama ──────► Vision model
+     │
+     └── music task ────────► ACE-Step ────► Audio
+                                  │
+                                  ▼
+                           Track management
+```
+
+The memory controller determines when models should remain loaded, move away from GPU memory or be released entirely.
+
+This is especially important when music synthesis and LLM inference compete for the same GPU.
+
+---
+
+## Music generation format
+
+Internally, creation requests can be represented using structured musical information:
+
+```text
 title:
 style:
 lyrics:
@@ -158,150 +294,185 @@ duration:
 language:
 ```
 
-### Regras
+For example:
 
-**Style**
+```text
+title: Night Drive
+style: atmospheric synthwave, analog bass, cinematic drums
+lyrics:
+  "City lights dissolve behind me"
+  "Midnight running through the glass"
+duration: 180
+language: en
+```
 
-```
-[guitarra pesada metalica]
-```
-
-**Lyrics**
-
-```
-"Sol brilha no peito"
-"Vento corta a estrada"
-```
+Separating semantic information from generation parameters makes it easier for the AI assistant and creation interface to share the same pipeline.
 
 ---
 
-## 🧠 Retenção de memória
+## Startup profiles
 
-### Modos disponíveis
+Lyra provides different execution profiles for different hardware configurations.
 
-* `auto`
-* `vram`
-* `ram`
-* `unload`
+| Script                     | Profile                     |
+| -------------------------- | --------------------------- |
+| `start.bat`                | standard execution          |
+| `start_CPU_Only.bat`       | CPU-oriented fallback       |
+| `start_LowVRAM_GPU.bat`    | reduced VRAM usage          |
+| `start_Quantized_Fast.bat` | quantized inference profile |
 
----
+For the standard configuration:
 
-### 🎵 Comportamento
+```bat
+start.bat
+```
 
-| Modo   | Descrição            |
-| ------ | -------------------- |
-| auto   | carrega sob demanda  |
-| vram   | mais rápido, usa GPU |
-| ram    | offload para CPU     |
-| unload | descarrega sempre    |
+The launcher handles the local environment and starts the services required by the application.
 
----
+Once initialized, the interface is available at:
 
-## ⚠️ Notas importantes
-
-* 🟡 “Pronto sob demanda” é normal
-* ⏱️ Durações longas podem estourar VRAM
-* 💡 Use `auto`, `ram` ou `unload` nesses casos
-* 🌐 Chat pode usar busca real
-* 🎨 Prompt vira consulta otimizada
-* 🌎 Idioma exportado evita voz errada
-
----
-
-## 📁 Estrutura
-
-```bash
-app.py
-config.json
-api.txt
-README.md
-AJUDA.md
-static/
-templates/
-output/
-models/
-ace_step_src/
+```text
+http://localhost:5000
 ```
 
 ---
 
-## 📚 Documentação
+## Technology stack
 
-* `api.txt` → API
-* `AJUDA.md` → troubleshooting
-* `README.md` → documentação principal
-
----
----
-
-## 🖥️ Requisitos de GPU (NVIDIA)
-
-Este projeto foi **testado com placas NVIDIA**.
-
-### 📊 VRAM recomendada
-
-| Nível | VRAM | Observação |
-|------|------|-----------|
-| 🟢 Recomendado | **16 GB** | Experiência ideal, sem limitações |
-| 🟡 Mínimo recomendado | **8 GB** | Funciona bem, com alguns cuidados |
-| 🔴 Mínimo absoluto | **4 GB** | ⚠️ Por sua conta e risco |
+| Layer             | Technology           |
+| ----------------- | -------------------- |
+| Music generation  | **ACE-Step 1.5**     |
+| Language models   | **Gemma / Qwen**     |
+| Local LLM runtime | **Ollama**           |
+| Backend           | **Python / Flask**   |
+| Interface         | **Web UI**           |
+| Acceleration      | **NVIDIA GPU**       |
+| Storage           | **Local filesystem** |
 
 ---
 
-### ⚠️ Observações importantes
+## Repository structure
 
-- GPUs com **8 GB** podem ter problemas em:
-  - músicas longas  
-  - múltiplas gerações seguidas  
-
-- GPUs com **4 GB**:
-  - podem falhar frequentemente  
-  - exigem modos como `ram` ou `unload`  
-  - podem ser... uma experiência espiritual  
-
-- Para evitar crashes:
-  - prefira modos de memória mais leves  
-  - reduza duração das faixas  
-  - evite multitarefa pesada  
-
----
-
-
----
-
-## 🧩 Tecnologias utilizadas
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Flask-backend-black?logo=flask">
-  <img src="https://img.shields.io/badge/Ollama-runtime-white?logo=llama">
-  <img src="https://img.shields.io/badge/Python-3.x-blue?logo=python">
-  <img src="https://img.shields.io/badge/NVIDIA-GPU-green?logo=nvidia">
-  <img src="https://img.shields.io/badge/AI-Local-orange">
-</p>
+```text
+Lyra/
+├── app.py
+│
+├── config.json
+├── api.txt
+├── AJUDA.md
+├── README.md
+│
+├── static/
+│   └── frontend assets
+│
+├── templates/
+│   └── application interface
+│
+├── output/
+│   └── generated tracks
+│
+├── models/
+│   └── local model resources
+│
+└── ace_step_src/
+    └── music generation runtime
+```
 
 ---
 
-### 🧠 Stack detalhada
+## Local-first design
 
-- 🌐 **Flask** → servidor web local  
-- 🤖 **Ollama** → execução dos modelos  
-- 🐍 **Python** → backend principal  
-- 🎼 **ACE-Step 1.5** → geração musical  
-- 🧾 **Gemma / Qwen** → linguagem e visão  
+Lyra was designed around local execution rather than treating it as a fallback mode.
+
+The core inference workflow does not require cloud-hosted model APIs.
+
+This provides several practical properties:
+
+### Privacy
+
+Prompts, lyrics, model interactions and generated tracks can remain on the local machine.
+
+### Predictable inference cost
+
+Local generation does not introduce per-request inference API charges.
+
+### Model control
+
+The user controls which models are installed and executed.
+
+### Offline-capable inference
+
+Once the required models and dependencies are available locally, core model inference does not depend on a remote inference service.
+
+Web-search functionality naturally requires network access when enabled.
 
 ---
 
-### ⚙️ Execução
+## Engineering focus
 
-Tudo roda localmente:
+Lyra is not only a frontend around a music model.
 
-- sem API externa  
-- sem dependência cloud  
-- sem cobrança surpresa no cartão  
+The project explores the engineering required to combine several resource-intensive AI systems inside one local application:
+
+* heterogeneous model orchestration;
+* GPU memory pressure;
+* model loading and unloading;
+* quantized inference;
+* streaming generation;
+* multimodal interaction;
+* persistent local media;
+* workflow integration between LLM output and generative audio.
+
+The central challenge is making those components behave as **one application** rather than a collection of unrelated inference scripts.
 
 ---
 
-### 💡 Filosofia
+## Documentation
 
-> Seu PC, suas regras.  
-> PRIVACIDADE é TUDO
+Additional project documentation:
+
+* `api.txt` — API reference;
+* `AJUDA.md` — troubleshooting and operational notes;
+* `README.md` — project overview.
+
+---
+
+## Project status
+
+**Active development.**
+
+Current functionality includes:
+
+* local music generation;
+* local text inference;
+* vision model integration;
+* streaming AI chat;
+* optional web research;
+* AI-assisted lyrics and prompts;
+* vocal references;
+* configurable model selection;
+* track library;
+* memory-aware model management;
+* multiple hardware profiles.
+
+The project currently targets Windows and NVIDIA-based systems.
+
+---
+
+## Philosophy
+
+> **Your machine. Your models. Your music.**
+
+Lyra is built around the idea that a complete generative AI workspace can run locally while still providing the convenience expected from modern AI applications.
+
+No mandatory cloud inference layer between the creator and the models.
+
+---
+
+<div align="center">
+
+### Lyra Engine
+
+**Local AI for music creation, from the first idea to the generated track.**
+
+</div>
